@@ -22,9 +22,9 @@ jobs:
       with:
         # Defining all the required inputs
         # I used the mono version of Godot in this example
-        godot_executable_download_url: https://archive.hugo.pro/builds/godot/master/server/godot-linux-headless-nightly-x86_64.tar.xz
-        godot_export_templates_download_url: https://archive.hugo.pro/builds/godot/master/templates/godot-templates-android-html5-linux-windows-nightly.tpz
-        godot_template_version: 4.0.dev
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.2.1/rc1/Godot_v3.2.1-rc1_linux_headless.64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.2.1/rc1/Godot_v3.2.1-rc1_export_templates.tpz
+        godot_template_version: 3.2.rc1
         relative_project_path: ./
         create_release: false
       env:
