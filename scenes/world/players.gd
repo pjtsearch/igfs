@@ -75,13 +75,12 @@ remote func register_client(id, info):
 	print(info)
 	
 	client_info[id] = info
-	var selfPeerID = get_tree().get_network_unique_id()
 
-	# Load my player
-	var instance_my_player = player.instance()
-	instance_my_player.set_name(str(selfPeerID))
-	instance_my_player.set_network_master(selfPeerID) # Will be explained later
-	add_child(instance_my_player)
+	# Load new player
+	var instance_player = player.instance()
+	instance_player.set_name(str(id))
+	instance_player.set_network_master(id) # Will be explained later
+	add_child(instance_player)
 		
 	# If I'm the server, let the new guy know about existing players.
 	if get_tree().is_network_server() && id != 1:
