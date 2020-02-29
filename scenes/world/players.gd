@@ -39,6 +39,7 @@ func _ready():
 var client_info = {}
 # Info we send to other players
 var my_info = { name = "PJT" }
+var objects = {}
 
 func _client_connected(id):
 	pass
@@ -54,6 +55,7 @@ func _connected_ok():
 	
 	yield(get_tree().create_timer(5), "timeout")
 	rpc("register_client", get_tree().get_network_unique_id(), my_info)
+	rpc("register_object",  get_tree().get_network_unique_id(), "player", my_info)
 	# Only called on clients, not server. Will go unused; not useful here.
 
 func _server_disconnected():
@@ -70,28 +72,40 @@ func _connected_fail():
 	
 remote func register_client(id, info):
 	# Store the info
-	print("Registering player, id: " + str(id))
-	print("Player info:")
+	print("Registering client, id: " + str(id))
+	print("Client info:")
 	print(info)
 	
 	client_info[id] = info
-
-	# Load new player
-	var instance_player = player.instance()
-	instance_player.set_name(str(id))
-	instance_player.set_network_master(id) # Will be explained later
-	add_child(instance_player)
-		
+	
 	# If I'm the server, let the new guy know about existing players.
 	if get_tree().is_network_server() && id != 1:
 		#my_info.ship = ShipInfo.ship
 		# Send my info to new player
 		rpc_id(id, "register_client", 1, my_info)
+		rpc_id(id, "register_object",  1, "player", my_info)
 		# Send the info of existing players
 		for peer_id in client_info:
-			rpc_id(id, "register_client", peer_id, client_info[peer_id])
+			if peer_id != id:
+				rpc_id(id, "register_client", peer_id, client_info[peer_id])
+				rpc_id(id, "register_object",  peer_id, "player", client_info[peer_id])
+	
+remote func register_object(owner,type,info):
+	var id = type+"_"+str(owner)
+	print("Registering object, id: " + str(id))
+	print("Object info:")
+	print(info)
+	
+	objects[id] = info
+	
+	if type == "player":
+		# Load new player
+		var instance_player = player.instance()
+		instance_player.set_name(str(id))
+		instance_player.set_network_master(owner) # Will be explained later
+		add_child(instance_player)
 
-	print("Players: " + str(client_info))
+	print("Objects: " + str(objects))
 	
 #remote func pre_configure_game():
 #	var selfPeerID = get_tree().get_network_unique_id()
