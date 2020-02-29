@@ -23,11 +23,11 @@ func _ready():
 		get_tree().set_network_peer(peer)
 
 	var i_self = self
-	get_tree().connect("network_peer_connected", Callable(i_self,"_client_connected"))
-	get_tree().connect("network_peer_disconnected",Callable(i_self,"_client_disconnected"))
-	get_tree().connect("connected_to_server", Callable(i_self,"_connected_ok"))
-	get_tree().connect("connection_failed", Callable(i_self,"_connected_fail"))
-	get_tree().connect("server_disconnected", Callable(i_self,"_server_disconnected"))
+	get_tree().connect("network_peer_connected", self,"_client_connected")
+	get_tree().connect("network_peer_disconnected", self,"_client_disconnected")
+	get_tree().connect("connected_to_server",  self,"_connected_ok")
+	get_tree().connect("connection_failed",  self,"_connected_fail")
+	get_tree().connect("server_disconnected",  self,"_server_disconnected")
 	
 	#register_client(get_tree().get_network_unique_id(),my_info)
 	var instance_my_player = player.instance()
