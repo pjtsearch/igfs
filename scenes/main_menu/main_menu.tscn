@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/fonts/manrope-xxl.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/main_menu/StartButton.gd" type="Script" id=2]
 
 [node name="main_menu" type="Node2D"]
 script = null
@@ -64,4 +65,4 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_vertical = 0
 text = "Start"
-script = null
+script = ExtResource( 2 )
