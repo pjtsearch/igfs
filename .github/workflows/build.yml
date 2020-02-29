@@ -29,8 +29,10 @@ jobs:
         create_release: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: ls exports
       run: |
-        cat ./exports
+        ls ./exports
+    - name: Upload artifacts
       uses: actions/upload-artifact@v1
       with:
         name: build
