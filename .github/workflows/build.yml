@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: build
-        path: ./exports/LinuxX11.zip
+        path: ./exports
