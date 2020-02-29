@@ -27,3 +27,5 @@ jobs:
         godot_template_version: 4.0.dev
         relative_project_path: ./
         create_release: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
