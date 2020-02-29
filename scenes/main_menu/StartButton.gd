@@ -15,4 +15,4 @@ func _ready():
 #func _process(delta):
 #	pass
 func _pressed():
-	igfs.goto_scene("res://scenes/world/world.tscn")
+	SceneLoader.goto_scene("res://scenes/world/world.tscn")

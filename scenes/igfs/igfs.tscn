@@ -12,3 +12,9 @@ __meta__ = {
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 script = null
+
+[node name="children" type="Control" parent="."]
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}

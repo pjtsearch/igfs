@@ -1,6 +1,6 @@
 extends Node
 
-var main_menu = preload("res://scenes/main_menu/main_menu.tscn")
+#var main_menu = preload("res://scenes/main_menu/main_menu.tscn")
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -9,8 +9,9 @@ var main_menu = preload("res://scenes/main_menu/main_menu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var instance_main_menu = main_menu.instance()
-	add_child(instance_main_menu)
+	#var instance_main_menu = main_menu.instance()
+	#add_child(instance_main_menu)
+	SceneLoader.goto_scene("res://scenes/main_menu/main_menu.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
