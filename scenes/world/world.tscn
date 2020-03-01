@@ -6,7 +6,14 @@
 [node name="world" type="Spatial"]
 
 [node name="planet" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -100000 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10000 )
 
 [node name="players" type="Spatial" parent="."]
 script = ExtResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32844, -0.0189419 )
+use_collision = true
+width = 10.0
+height = 0.1
+depth = 10.0

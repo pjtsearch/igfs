@@ -26,6 +26,7 @@ config/icon="res://icon.png"
 SceneLoader="*res://scenes/igfs/scene_loader.gd"
 settings="*res://utilities/settings.gd"
 network="*res://utilities/network.gd"
+transition_handler="*res://utilities/transition_handler.gd"
 
 [display]
 

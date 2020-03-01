@@ -8,6 +8,7 @@ puppet var puppet_position = Transform(Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0
 
 var speed = 0
 var health = 100
+var landing = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -23,3 +24,10 @@ func _process(delta):
 		rset_unreliable('puppet_position', get_global_transform())
 	else:
 		set_global_transform(puppet_position)
+
+
+master func transition_rotate(speed,vector):
+	var rotate_transiton = transition_handler.transition(speed,0,100,1.07)
+	for amount in rotate_transiton:
+		rotate_object_local(vector, amount)
+		yield( get_tree().create_timer(0.05), "timeout" )

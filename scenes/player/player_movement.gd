@@ -20,7 +20,7 @@ master func _process(delta):
 #
 #	var TURN_SPEED = get_turn_speed(delta,get_owner().speed,SHIP_TURN_RATE)
 	
-	var TURN_SPEED = 0.1
+	var TURN_SPEED = 0.01
 
 	if Input.is_key_pressed(KEY_UP):
 #		if get_owner().speed + 1 <= SHIP_MAX_SPEED && !get_owner().landing:
