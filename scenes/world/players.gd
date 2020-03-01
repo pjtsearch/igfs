@@ -12,7 +12,7 @@ var server = config.get_value("multiplayer", "server", false)
 func _ready():
 	#var instance_player = player.instance()
 	#add_child(instance_player)
-	print_debug("server:" + str(server))
+	print("server:" + str(server))
 	if server:
 		var peer = NetworkedMultiplayerENet.new()
 		peer.create_server(8000, 5)
@@ -71,10 +71,11 @@ func _connected_fail():
 #	client_info[id] = info
 	
 remote func register_client(id, info):
-	# Store the info
+	print("--------------")
 	print("Registering client, id: " + str(id))
 	print("Client info:")
 	print(info)
+	print("--------------")
 	
 	client_info[id] = info
 	
@@ -92,9 +93,11 @@ remote func register_client(id, info):
 	
 remote func register_object(owner,type,info):
 	var id = type+"_"+str(owner)
+	print("--------------")
 	print("Registering object, id: " + str(id))
 	print("Object info:")
 	print(info)
+	print("--------------")
 	
 	objects[id] = info
 	
