@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/player/player.gd" type="Script" id=1]
+[ext_resource path="res://scenes/player/player_movement.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 2, 2, 2 )
@@ -6,22 +9,24 @@ extents = Vector3( 2, 2, 2 )
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 4, 4, 4 )
 
-[node name="player" type="Spatial"]
-script = null
+[node name="player" type="KinematicBody"]
+script = ExtResource( 1 )
 
-[node name="KinematicBody" type="KinematicBody" parent="."]
-script = null
-
-[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
-script = null
 
-[node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
+[node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
 material/0 = null
-script = null
+
+[node name="SpotLight" type="SpotLight" parent="MeshInstance"]
+transform = Transform( 0.00777327, 0.544493, -0.83873, -0.00504609, 0.838766, 0.544469, 0.999957, 0, 0.00926751, -4.87896, 3.31087, -0.477951 )
+spot_range = 13.9408
+spot_angle = 45.0779
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.00129168, 0, -0.999999, 0, 1, 0, 0.999999, 0, -0.00129168, -7.55019, 3.17447, 0 )
 fov = 59.379
-script = null
+
+[node name="player_movement" type="Spatial" parent="."]
+script = ExtResource( 2 )

@@ -24,6 +24,8 @@ config/icon="res://icon.png"
 [autoload]
 
 SceneLoader="*res://scenes/igfs/scene_loader.gd"
+settings="*res://utilities/settings.gd"
+network="*res://utilities/network.gd"
 
 [display]
 
