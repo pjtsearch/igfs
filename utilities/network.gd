@@ -51,7 +51,7 @@ func _client_disconnected(id):
 func _connected_ok():
 	print_debug("_connected_ok: " + str(get_tree().get_network_unique_id()))
 	
-	yield(get_tree().create_timer(5), "timeout")
+	yield(get_tree().create_timer(2), "timeout")
 	rpc("register_client", get_tree().get_network_unique_id(), my_info)
 	rpc("register_object",  get_tree().get_network_unique_id(), "player", my_info)
 	# Only called on clients, not server. Will go unused; not useful here.

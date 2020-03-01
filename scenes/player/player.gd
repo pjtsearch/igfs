@@ -6,7 +6,7 @@ extends KinematicBody
 # var b = "text"
 puppet var puppet_position = Transform(Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0))
 
-var speed = 1
+var speed = 0
 var health = 100
 # Called when the node enters the scene tree for the first time.
 func _ready():
