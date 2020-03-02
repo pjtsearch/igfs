@@ -14,7 +14,7 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			if !visible:
-				popup_centered()
+				popup()
 			else:
 				visible = false
 
