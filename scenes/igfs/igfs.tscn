@@ -5,6 +5,8 @@
 [ext_resource path="res://assets/environments/environment0.tres" type="Environment" id=3]
 
 [node name="igfs" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -15,6 +17,8 @@ __meta__ = {
 environment = ExtResource( 3 )
 
 [node name="children" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
