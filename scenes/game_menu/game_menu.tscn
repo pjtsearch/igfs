@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/themes/theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/game_menu/quit_button.gd" type="Script" id=2]
 
 [node name="game_menu" type="PopupPanel"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
@@ -32,8 +34,9 @@ margin_right = 1156.0
 margin_bottom = 556.0
 rect_min_size = Vector2( 400, 0 )
 
-[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="quit_button" type="Button" parent="CenterContainer/VBoxContainer"]
 margin_right = 400.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 text = "Quit"
+script = ExtResource( 2 )
