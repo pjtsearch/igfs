@@ -1,6 +1,6 @@
 extends Spatial
 
-
+var bullet = preload("res://scenes/bullet/bullet.tscn")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -70,3 +70,20 @@ master func _process(delta):
 			get_owner().transition_rotate(-TURN_SPEED,Vector3(0, 0, 1))
 		else:
 			get_owner().transition_rotate(-(delta * (SHIP_TURN_RATE * 10)),Vector3(0, 0, 1))
+
+#FIXME: REFACTOR
+
+master func _unhandled_input(event):
+	if is_network_master():
+		if event is InputEventKey:
+			if event.pressed and event.scancode == KEY_SPACE:
+				var instance_bullet = bullet.instance()
+				var id = randi()%100001+1
+				instance_bullet.set_name("bullet_"+str(id))
+				instance_bullet.set_global_transform(get_owner().get_global_transform())
+				instance_bullet.translate(Vector3(0,0,-10))
+				instance_bullet.set_network_master(get_tree().get_network_unique_id())
+				instance_bullet.speed = get_owner().speed + 20
+				#print("_unhandled_input add_child")
+				$"/root/igfs/children/world/players".add_child(instance_bullet)
+				network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})

@@ -1,6 +1,7 @@
 extends Spatial
 
 var player = preload("res://scenes/player/player.tscn")
+var bullet = preload("res://scenes/bullet/bullet.tscn")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -90,21 +91,31 @@ remote func register_client(id, info):
 				rpc_id(id, "register_object",  peer_id, "player", client_info[peer_id])
 	
 remote func register_object(owner,type,info):
-	var id = type+"_"+str(owner)
+	
 	print("--------------")
-	print("Registering object, id: " + str(id))
+	print("Registering object, owner: " + str(owner))
 	print("Object info:")
 	print(info)
 	print("--------------")
-	
-	objects[id] = info
+	var id;
 	
 	if type == "player":
+		id = type+"_"+str(owner)
 		# Load new player
 		var instance_player = player.instance()
 		instance_player.set_name(str(id))
 		instance_player.set_network_master(owner) # Will be explained later
 		$"/root/igfs/children/world/players".add_child(instance_player)
+	elif type == "bullet":
+		id = "bullet_"+str(info.id)
+		print("bullet id: "+str(id))
+		var instance_bullet = bullet.instance()
+		instance_bullet.set_name(id)
+		instance_bullet.set_network_master(owner)
+		#print("register_object add_child")
+		$"/root/igfs/children/world/players".add_child(instance_bullet)
+	
+	objects[id] = info
 
 	print("Objects: " + str(objects))
 	
