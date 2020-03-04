@@ -87,3 +87,6 @@ master func _unhandled_input(event):
 				#print("_unhandled_input add_child")
 				$"/root/igfs/children/world/players".add_child(instance_bullet)
 				network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
+				yield(get_tree().create_timer(10), "timeout")
+				get_node("/root/igfs/children/world/players/bullet_"+str(id)).queue_free()
+				network.rpc("unregister_object",  "bullet_"+str(id))

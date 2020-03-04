@@ -118,6 +118,17 @@ remote func register_object(owner,type,info):
 	objects[id] = info
 
 	print("Objects: " + str(objects))
+
+remote func unregister_object(id):
+	print("--------------")
+	print("Unregistering object, id: " + str(id))
+	print("--------------")
+	
+	get_node("/root/igfs/children/world/players/"+id).queue_free()
+	objects.erase(id)
+	
+	print("Objects: " + str(objects))
+	
 	
 #remote func pre_configure_game():
 #	var selfPeerID = get_tree().get_network_unique_id()
