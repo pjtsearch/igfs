@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/fonts/manrope-xxxl-wide.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/main_menu/StartButton.gd" type="Script" id=2]
+[ext_resource path="res://assets/environments/skybox.jpg" type="Texture" id=3]
 
-[node name="main_menu" type="Control"]
+[node name="main_menu" type="TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 12
+size_flags_vertical = 12
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
