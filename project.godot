@@ -28,6 +28,10 @@ settings="*res://utilities/settings.gd"
 network="*res://utilities/network.gd"
 transition_handler="*res://utilities/transition_handler.gd"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=1920
@@ -36,6 +40,7 @@ window/size/always_on_top=true
 window/size/test_width=426
 window/size/test_height=240
 window/dpi/allow_hidpi=true
+window/vsync/use_vsync=false
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
@@ -49,4 +54,6 @@ singletons=[  ]
 
 [rendering]
 
+threads/thread_model=2
+quality/filters/anisotropic_filter_level=1
 environment/default_environment="res://default_env.tres"

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/fps_display/fps_display.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/manrope-l.tres" type="DynamicFont" id=2]
+
+[node name="fps_display" type="Label"]
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Loading..."
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
