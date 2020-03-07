@@ -124,7 +124,8 @@ remote func unregister_object(id):
 	print("Unregistering object, id: " + str(id))
 	print("--------------")
 	
-	get_node("/root/igfs/children/world/players/"+id).queue_free()
+	if has_node("/root/igfs/children/world/players/"+id):
+		get_node("/root/igfs/children/world/players/"+id).queue_free()
 	objects.erase(id)
 	
 	print("Objects: " + str(objects))

@@ -78,7 +78,7 @@ master func _unhandled_input(event):
 		if event is InputEventKey:
 			if event.pressed and event.scancode == KEY_SPACE:
 				var instance_bullet = bullet.instance()
-				var id = randi()%100001+1
+				var id = randi()%100000000001+1
 				instance_bullet.set_name("bullet_"+str(id))
 				instance_bullet.set_global_transform(get_owner().get_global_transform())
 				instance_bullet.translate(Vector3(0,0,-10))
