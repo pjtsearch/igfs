@@ -14,4 +14,3 @@ ambient_light_sky_contribution = 0.04
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_color = Color( 0, 0, 0, 1 )
 auto_exposure_min_luma = 0.26
-ssao_enabled = true
