@@ -90,3 +90,6 @@ master func _unhandled_input(event):
 				yield(get_tree().create_timer(10), "timeout")
 				get_node("/root/igfs/children/world/players/bullet_"+str(id)).queue_free()
 				network.rpc("unregister_object",  "bullet_"+str(id))
+			
+			if event.pressed and event.scancode == KEY_R:
+				get_owner().reset()
