@@ -2,13 +2,9 @@ extends Spatial
 
 var player = preload("res://scenes/player/player.tscn")
 var bullet = preload("res://scenes/bullet/bullet.tscn")
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 # Called when the node enters the scene tree for the first time.
 func start():
-	var server = settings.get_value("multiplayer", "server", false)
+	var server = store.settings.get_value("multiplayer", "server", false)
 	#var instance_player = player.instance()
 	#add_child(instance_player)
 	print("server:" + str(server))
@@ -63,12 +59,6 @@ func _server_disconnected():
 func _connected_fail():
 	pass # Could not even connect to server; abort.
 
-#remote func register_client(info):
-#	# Get the id of the RPC sender.
-#	var id = get_tree().get_rpc_sender_id()
-#	# Store the info
-#	client_info[id] = info
-	
 remote func register_client(id, info):
 	print("--------------")
 	print("Registering client, id: " + str(id))
@@ -129,40 +119,3 @@ remote func unregister_object(id):
 	objects.erase(id)
 	
 	print("Objects: " + str(objects))
-	
-	
-#remote func pre_configure_game():
-#	var selfPeerID = get_tree().get_network_unique_id()
-#
-#	# Load my player
-#	var instance_my_player = player.instance()
-#	instance_my_player.set_name(str(selfPeerID))
-#	instance_my_player.set_network_master(selfPeerID) # Will be explained later
-#	add_child(instance_my_player)
-#
-#	# Load other players
-#	for client in client_info:
-#		var instance_player = player.instance()
-#		instance_player.set_name(str(client))
-#		instance_player.set_network_master(client) # Will be explained later
-#		add_child(instance_player)
-#
-#	# Tell server (remember, server is always ID=1) that this peer is done pre-configuring.
-#	rpc_id(1, "done_preconfiguring", selfPeerID)
-
-#unneccesary
-#var clients_done = []
-#remote func done_preconfiguring(who):
-#	# Here are some checks you can do, for example
-#	assert(get_tree().is_network_server())
-#	assert(who in client_info) # Exists
-#	assert(not who in clients_done) # Was not added yet
-#
-#	clients_done.append(who)
-#
-#	if clients_done.size() == client_info.size():
-#		rpc("post_configure_game")
-#
-#remote func post_configure_game():
-#	# Game starts now!
-#	pass
