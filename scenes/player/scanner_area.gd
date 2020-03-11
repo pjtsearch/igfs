@@ -1,6 +1,6 @@
 extends Area
 
-
+var objects = []
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -13,7 +13,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var objects = []
+	objects.clear()
 	var overlapping = get_overlapping_bodies()
 	for body in overlapping:
 		if body != get_owner():

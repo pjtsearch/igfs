@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/manrope-l.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/HUD/speed.gd" type="Script" id=2]
+[ext_resource path="res://scenes/HUD/health.gd" type="Script" id=3]
+[ext_resource path="res://scenes/scanner_display/scanner_display.tscn" type="PackedScene" id=4]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_right = 89.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 1 )
+text = "Health:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health" type="Label" parent="HBoxContainer"]
+margin_left = 93.0
+margin_right = 93.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="HBoxContainer"]
+margin_left = 97.0
+margin_right = 214.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 1 )
+text = "  Velocity:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="speed" type="Label" parent="HBoxContainer"]
+margin_left = 218.0
+margin_right = 218.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scanner_display" parent="." instance=ExtResource( 4 )]
