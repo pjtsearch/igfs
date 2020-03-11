@@ -47,7 +47,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-git-control.funabab", "vector-icons" )
+enabled=PoolStringArray( "godot-git-control.funabab" )
 
 [gdnative]
 
@@ -56,5 +56,5 @@ singletons=[  ]
 [rendering]
 
 threads/thread_model=2
-quality/filters/anisotropic_filter_level=1
+quality/filters/msaa=1
 environment/default_environment="res://default_env.tres"
