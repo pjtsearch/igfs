@@ -10,7 +10,8 @@ extends Spatial
 func _ready():
 	network.start()
 
-
+func _exit_tree():
+	network.stop()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

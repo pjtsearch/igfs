@@ -85,10 +85,10 @@ master func _unhandled_input(event):
 				instance_bullet.set_network_master(get_tree().get_network_unique_id())
 				instance_bullet.speed = get_owner().speed + 20
 				#print("_unhandled_input add_child")
-				$"/root/igfs/children/world/players".add_child(instance_bullet)
+				$"/root/igfs/children/world/objects".add_child(instance_bullet)
 				network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
 				yield(get_tree().create_timer(10), "timeout")
-				get_node("/root/igfs/children/world/players/bullet_"+str(id)).queue_free()
+				get_node("/root/igfs/children/world/objects/bullet_"+str(id)).queue_free()
 				network.rpc("unregister_object",  "bullet_"+str(id))
 			
 			if event.pressed and event.scancode == KEY_R:

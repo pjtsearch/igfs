@@ -2,6 +2,7 @@ extends Spatial
 
 var player = preload("res://scenes/player/player.tscn")
 var bullet = preload("res://scenes/bullet/bullet.tscn")
+var peer;
 # Called when the node enters the scene tree for the first time.
 func start():
 	var server = store.settings.get_value("multiplayer", "server", false)
@@ -9,11 +10,11 @@ func start():
 	#add_child(instance_player)
 	print("server:" + str(server))
 	if server:
-		var peer = NetworkedMultiplayerENet.new()
+		peer = NetworkedMultiplayerENet.new()
 		peer.create_server(8000, 5)
 		get_tree().set_network_peer(peer)
 	else:
-		var peer = NetworkedMultiplayerENet.new()
+		peer = NetworkedMultiplayerENet.new()
 		peer.create_client("10.0.2.105", 8000)
 		get_tree().set_network_peer(peer)
 
@@ -28,8 +29,11 @@ func start():
 	var instance_my_player = player.instance()
 	instance_my_player.set_name("player_"+str(get_tree().get_network_unique_id()))
 	instance_my_player.set_network_master(get_tree().get_network_unique_id())
-	$"/root/igfs/children/world/players".add_child(instance_my_player)
+	$"/root/igfs/children/world/objects".add_child(instance_my_player)
 
+func stop():
+	print("stopping server")
+	peer.close_connection()
 # Player info, associate ID to data
 var client_info = {}
 # Info we send to other players
@@ -54,7 +58,8 @@ func _connected_ok():
 	# Only called on clients, not server. Will go unused; not useful here.
 
 func _server_disconnected():
-	pass # Server kicked us; show error and abort.
+	print_debug("_server_disconnected")
+	SceneLoader.goto_scene("res://scenes/main_menu/main_menu.tscn")
 
 func _connected_fail():
 	pass # Could not even connect to server; abort.
@@ -95,7 +100,7 @@ remote func register_object(owner,type,info):
 		var instance_player = player.instance()
 		instance_player.set_name(str(id))
 		instance_player.set_network_master(owner) # Will be explained later
-		$"/root/igfs/children/world/players".add_child(instance_player)
+		$"/root/igfs/children/world/objects".add_child(instance_player)
 	elif type == "bullet":
 		id = "bullet_"+str(info.id)
 		print("bullet id: "+str(id))
@@ -103,7 +108,7 @@ remote func register_object(owner,type,info):
 		instance_bullet.set_name(id)
 		instance_bullet.set_network_master(owner)
 		#print("register_object add_child")
-		$"/root/igfs/children/world/players".add_child(instance_bullet)
+		$"/root/igfs/children/world/objects".add_child(instance_bullet)
 	
 	objects[id] = info
 
@@ -114,8 +119,8 @@ remote func unregister_object(id):
 	print("Unregistering object, id: " + str(id))
 	print("--------------")
 	
-	if has_node("/root/igfs/children/world/players/"+id):
-		get_node("/root/igfs/children/world/players/"+id).queue_free()
+	if has_node("/root/igfs/children/world/objects/"+id):
+		get_node("/root/igfs/children/world/objects/"+id).queue_free()
 	objects.erase(id)
 	
 	print("Objects: " + str(objects))

@@ -13,4 +13,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	text = str(get_owner().get_node("players/player_"+str(get_tree().get_network_unique_id())).health)
+	text = str(get_owner().get_node("objects/player_"+str(get_tree().get_network_unique_id())).health)
