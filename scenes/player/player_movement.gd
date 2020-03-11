@@ -81,7 +81,7 @@ master func _unhandled_input(event):
 				var id = randi()%100000000001+1
 				instance_bullet.set_name("bullet_"+str(id))
 				instance_bullet.set_global_transform(get_owner().get_global_transform())
-				instance_bullet.translate(Vector3(0,0,-10))
+				instance_bullet.translate(Vector3(0,0,-0.8))
 				instance_bullet.set_network_master(get_tree().get_network_unique_id())
 				instance_bullet.speed = get_owner().speed + 20
 				#print("_unhandled_input add_child")
