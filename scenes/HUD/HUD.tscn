@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/fonts/manrope-l.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/HUD/speed.gd" type="Script" id=2]
 [ext_resource path="res://scenes/HUD/health.gd" type="Script" id=3]
 [ext_resource path="res://scenes/scanner_display/scanner_display.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Console/Console.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/HUD/console.gd" type="Script" id=6]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -57,3 +59,41 @@ __meta__ = {
 }
 
 [node name="scanner_display" parent="." instance=ExtResource( 4 )]
+
+[node name="console" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Console" parent="console" instance=ExtResource( 5 )]
+visible = false
+margin_bottom = -40.0
+userName = ""
+userRight = 16
+design = 2
+dockingStation = 1
+textColor = 11
+channelNames = [ "All" ]
+hideScrollBar = false
+roundedTitleBarEdges = true
+showTitleBar = true
+showTextBackground = true
+showConsoleBackground = true
+showLineBackground = true
+showSendButton = true
+showChannelButton = true
+titleBarBackgroundColor = Color( 0, 0, 0, 0.95 )
+backgroundColor = Color( 0.06, 0.06, 0.08, 0.88 )
+lineBackgroundColor = Color( 0.21, 0.21, 0.21, 0.82 )
+sendButtonColor = Color( 0.14, 0.14, 0.18, 0.34 )
+allowWindowDrag = false
+showTimeStamp = true
+userMsgSign = ">"
+commandSign = "/"
+logEnabled = false
+logInterval = 300.0
