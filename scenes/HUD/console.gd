@@ -8,7 +8,17 @@ onready var console = $Console
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	console.connect("visibility_changed",self,"visibility_changed")
+	
+func visibility_changed():
+	if console.visible:
+#		print("show")
+#		get_tree().paused = true
+		pause_handler.pause_movement()
+	else:
+#		get_tree().paused = false
+		pause_handler.resume_movement()
+
 
 #func _unhandled_input(event):
 #	if event is InputEventKey:

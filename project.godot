@@ -87,6 +87,7 @@ SceneLoader="*res://scenes/igfs/scene_loader.gd"
 store="*res://store/store.gd"
 network="*res://utilities/network.gd"
 transition_handler="*res://utilities/transition_handler.gd"
+pause_handler="*res://utilities/pause_handler.gd"
 
 [debug]
 
