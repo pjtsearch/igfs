@@ -18,7 +18,7 @@ metallic_specular = 0.61
 roughness = 0.23
 
 [sub_resource type="SphereShape" id=4]
-radius = 500.0
+radius = 2000.0
 
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
