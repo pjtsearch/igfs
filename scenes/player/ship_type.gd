@@ -20,5 +20,6 @@ remote func set_ship(path):
 
 	var config = load("res://store/config.gd").new(path + "/manifest.cfg")
 	
-	rset("ship",path)	
-	rpc("set_ship",path)
+	if is_network_master():
+		rset("ship",path)	
+		rpc("set_ship",path)

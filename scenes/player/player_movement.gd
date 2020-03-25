@@ -79,6 +79,7 @@ master func _unhandled_input(event):
 			if event is InputEventKey:
 				if event.pressed and event.scancode == KEY_SPACE:
 					var instance_bullet = bullet.instance()
+					randomize()
 					var id = randi()%100000000001+1
 					instance_bullet.set_name("bullet_"+str(id))
 					instance_bullet.set_global_transform(get_owner().get_global_transform())
@@ -87,9 +88,13 @@ master func _unhandled_input(event):
 					instance_bullet.speed = get_owner().speed + 20
 					#print("_unhandled_input add_child")
 					$"/root/igfs/children/world/objects".add_child(instance_bullet)
+#					print("--register_object id:"+str(id))
 					network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
 					yield(get_tree().create_timer(10), "timeout")
-					get_node("/root/igfs/children/world/objects/bullet_"+str(id)).queue_free()
+					if has_node("/root/igfs/children/world/objects/bullet_"+str(id)):
+						get_node("/root/igfs/children/world/objects/bullet_"+str(id)).queue_free()
+					else:
+						print_debug("doesnt have node:"+"/root/igfs/children/world/objects/bullet_"+str(id))
 					network.rpc("unregister_object",  "bullet_"+str(id))
 				
 				if event.pressed and event.scancode == KEY_R:
