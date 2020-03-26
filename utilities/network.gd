@@ -102,7 +102,7 @@ remote func register_object(owner,type,info):
 		instance_player.set_network_master(owner) # Will be explained later
 		$"/root/igfs/children/world/objects".add_child(instance_player)
 	elif type == "bullet":
-		id = "bullet_"+str(info.id)
+		id = info.id
 		print("bullet id: "+str(id))
 		var instance_bullet = bullet.instance()
 		instance_bullet.set_name(id)

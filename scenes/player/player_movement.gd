@@ -71,6 +71,7 @@ master func _process(delta):
 				get_owner().transition_rotate(delta * (SHIP_TURN_RATE * 10),Vector3(0, 0, 1))
 
 #FIXME: REFACTOR
+#FIXME: Make have better performance
 
 master func _unhandled_input(event):
 	if is_network_master():
@@ -99,7 +100,7 @@ master func _unhandled_input(event):
 							$"/root/igfs/children/world/objects".add_child(instance_bullet)
 							
 		#					print("--register_object id:"+str(id))
-							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
+							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id="bullet_"+str(id)})
 					
 					yield(get_tree().create_timer(10), "timeout")
 					for bullet in bullets:
