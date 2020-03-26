@@ -102,13 +102,7 @@ master func _unhandled_input(event):
 		#					print("--register_object id:"+str(id))
 							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id="bullet_"+str(id)})
 					
-					yield(get_tree().create_timer(10), "timeout")
-					for bullet in bullets:
-						if has_node("/root/igfs/children/world/objects/"+bullet.name):
-							get_node("/root/igfs/children/world/objects/"+bullet.name).queue_free()
-						else:
-							print_debug("doesnt have node:"+"/root/igfs/children/world/objects/"+bullet.name)
-						network.rpc("unregister_object",  bullet.name)
+					
 				
 				if event.pressed and event.scancode == KEY_R:
 					get_owner().reset()

@@ -9,7 +9,7 @@ onready var console = $Console
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	console.connect("visibility_changed",self,"visibility_changed")
-	console.userName = network.my_info.name
+	console.userName = network.my_info.id
 	
 	var say_ref = CommandRef.new(self, "say", CommandRef.VARIANT)
 	var say_command = ConsoleCommand.new('say', say_ref , 'Say to other players.')

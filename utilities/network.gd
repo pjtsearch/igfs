@@ -3,6 +3,12 @@ extends Spatial
 var player = preload("res://scenes/player/player.tscn")
 var bullet = preload("res://scenes/bullet/bullet.tscn")
 var peer;
+
+# Player info, associate ID to data
+var client_info = {}
+# Info we send to other players
+var my_info = { id = store.settings.get_value("info","id",str(randi()%100000000001+1)) }
+var objects = {}
 # Called when the node enters the scene tree for the first time.
 func start():
 	var server = store.settings.get_value("multiplayer", "server", false)
@@ -27,18 +33,14 @@ func start():
 	
 	#register_client(get_tree().get_network_unique_id(),my_info)
 	var instance_my_player = player.instance()
-	instance_my_player.set_name("player_"+str(get_tree().get_network_unique_id()))
+	instance_my_player.set_name("player_"+my_info.id)
 	instance_my_player.set_network_master(get_tree().get_network_unique_id())
 	$"/root/igfs/children/world/objects".add_child(instance_my_player)
 
 func stop():
 	print("stopping server")
 	peer.close_connection()
-# Player info, associate ID to data
-var client_info = {}
-# Info we send to other players
-var my_info = { name = "PJT" }
-var objects = {}
+
 
 func _client_connected(id):
 	pass
@@ -95,10 +97,10 @@ remote func register_object(owner,type,info):
 	var id;
 	
 	if type == "player":
-		id = type+"_"+str(owner)
+		id = "player_"+str(info.id)
 		# Load new player
 		var instance_player = player.instance()
-		instance_player.set_name(str(id))
+		instance_player.set_name(id)
 		instance_player.set_network_master(owner) # Will be explained later
 		$"/root/igfs/children/world/objects".add_child(instance_player)
 	elif type == "bullet":

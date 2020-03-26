@@ -17,7 +17,7 @@ func _process(delta):
 	for child in get_node("scanner_viewport").get_children():
 		child.queue_free()
 		
-	var objects = get_node("/root/igfs/children/world/objects/player_"+str(get_tree().get_network_unique_id())+"/scanner_area").objects
+	var objects = get_node("/root/igfs/children/world/objects/player_"+network.my_info.id+"/scanner_area").objects
 #	var relative_objects = [];
 	for object in objects:
 #		var relative_x = (object.position.x / 500) * 150
