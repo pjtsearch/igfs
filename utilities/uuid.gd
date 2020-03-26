@@ -28,7 +28,6 @@ func v4():
 	var hi = '%02x%02x' % [b[6], b[7]]
 	var clock = '%02x%02x' % [b[8], b[9]]
 	var node = '%02x%02x%02x%02x%02x%02x' % [b[10], b[11], b[12], b[13], b[14], b[15]]
-	
 	return '%s-%s-%s-%s-%s' % [low, mid, hi, clock, node]
 
 func generate():
