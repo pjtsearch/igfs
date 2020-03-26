@@ -3,6 +3,7 @@ extends KinematicBody
 puppet var puppet_position = Transform(Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0))
 
 var speed = 100
+var owner_name = null
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"

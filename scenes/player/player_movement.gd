@@ -82,11 +82,13 @@ master func _unhandled_input(event):
 					var id = randi()%100000000001+1
 					instance_bullet.set_name("bullet_"+str(id))
 					instance_bullet.set_network_master(get_tree().get_network_unique_id())
-					instance_bullet.speed = get_owner().speed + 100
+					instance_bullet.speed = get_owner().speed + 1000
 					instance_bullet.set_global_transform(get_owner().get_global_transform())
+					instance_bullet.owner_name = name
 #					make sure bullet doesn't hit the ship when it is spawned at high speeds
-					var speed_compensation = -64.4 * (pow(1.00043,-0.999*get_owner().speed)) + 62.699
-					instance_bullet.translate(Vector3(0,0,10+speed_compensation))
+#					var speed_compensation = -81.4 * (pow(0.99989,0.999*(get_owner().speed-100))) + 80.2
+#					if speed_compensation < 0: speed_compensation = 0
+					instance_bullet.translate(Vector3(0,0,0))
 					#print("_unhandled_input add_child")
 					$"/root/igfs/children/world/objects".add_child(instance_bullet)
 					
