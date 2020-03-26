@@ -7,7 +7,7 @@ var peer;
 # Player info, associate ID to data
 var client_info = {}
 # Info we send to other players
-var my_info = { id = store.settings.get_value("info","id",str(randi()%100000000001+1)) }
+var my_info = { id = store.settings.get_value("info","id",uuid.generate()) }
 var objects = {}
 # Called when the node enters the scene tree for the first time.
 func start():

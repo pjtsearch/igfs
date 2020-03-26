@@ -83,6 +83,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+uuid="*res://utilities/uuid.gd"
 SceneLoader="*res://scenes/igfs/scene_loader.gd"
 store="*res://store/store.gd"
 network="*res://utilities/network.gd"
