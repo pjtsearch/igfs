@@ -39,16 +39,15 @@ master func _process(delta):
 	#				get_owner().move_and_collide(get_owner().global_transform.basis.y * -1 * 0.1)
 			get_owner().speed = get_owner().speed-1
 		if Input.is_key_pressed(KEY_S):
-			# rotate_object_local(Vector3(1, 0, 0), TURN_SPEED)
-			if !get_owner().landing:
-				get_owner().transition_rotate(TURN_SPEED,Vector3(1, 0, 0))
-			else:
-				get_owner().transition_rotate(delta * (SHIP_TURN_RATE * 10),Vector3(1, 0, 0))
-		if Input.is_key_pressed(KEY_W):
 			if !get_owner().landing:
 				get_owner().transition_rotate(-TURN_SPEED,Vector3(1, 0, 0))
 			else:
 				get_owner().transition_rotate(-(delta * (SHIP_TURN_RATE * 10)),Vector3(1, 0, 0))
+		if Input.is_key_pressed(KEY_W):
+			if !get_owner().landing:
+				get_owner().transition_rotate(TURN_SPEED,Vector3(1, 0, 0))
+			else:
+				get_owner().transition_rotate(delta * (SHIP_TURN_RATE * 10),Vector3(1, 0, 0))
 		if Input.is_key_pressed(KEY_A):
 			if !get_owner().landing:
 				get_owner().transition_rotate(TURN_SPEED,Vector3(0, 1, 0))
@@ -61,15 +60,15 @@ master func _process(delta):
 				get_owner().transition_rotate(-(delta * (SHIP_TURN_RATE * 10)),Vector3(0, 1, 0))
 		if Input.is_key_pressed(KEY_Q):
 			if !get_owner().landing:
-				get_owner().transition_rotate(TURN_SPEED,Vector3(0, 0, 1))
-			else:
-				get_owner().transition_rotate(delta * (SHIP_TURN_RATE * 10),Vector3(0, 0, 1))
-				
-		if Input.is_key_pressed(KEY_E):
-			if !get_owner().landing:
 				get_owner().transition_rotate(-TURN_SPEED,Vector3(0, 0, 1))
 			else:
 				get_owner().transition_rotate(-(delta * (SHIP_TURN_RATE * 10)),Vector3(0, 0, 1))
+	
+		if Input.is_key_pressed(KEY_E):
+			if !get_owner().landing:
+				get_owner().transition_rotate(TURN_SPEED,Vector3(0, 0, 1))
+			else:
+				get_owner().transition_rotate(delta * (SHIP_TURN_RATE * 10),Vector3(0, 0, 1))
 
 #FIXME: REFACTOR
 
@@ -82,12 +81,15 @@ master func _unhandled_input(event):
 					randomize()
 					var id = randi()%100000000001+1
 					instance_bullet.set_name("bullet_"+str(id))
-					instance_bullet.set_global_transform(get_owner().get_global_transform())
-					instance_bullet.translate(Vector3(0,0,-1))
 					instance_bullet.set_network_master(get_tree().get_network_unique_id())
-					instance_bullet.speed = get_owner().speed + 20
+					instance_bullet.speed = get_owner().speed + 100
+					instance_bullet.set_global_transform(get_owner().get_global_transform())
+#					make sure bullet doesn't hit the ship when it is spawned at high speeds
+					var speed_compensation = -64.4 * (pow(1.00043,-0.999*get_owner().speed)) + 62.699
+					instance_bullet.translate(Vector3(0,0,10+speed_compensation))
 					#print("_unhandled_input add_child")
 					$"/root/igfs/children/world/objects".add_child(instance_bullet)
+					
 #					print("--register_object id:"+str(id))
 					network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
 					yield(get_tree().create_timer(10), "timeout")

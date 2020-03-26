@@ -2,7 +2,7 @@ extends KinematicBody
 
 puppet var puppet_position = Transform(Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0))
 
-var speed = 50
+var speed = 100
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -19,7 +19,7 @@ func _ready():
 
 func _process(delta):
 	if is_network_master():
-		var collisionInfo = move_and_slide(global_transform.basis.z * -1 * speed)
+		var collisionInfo = move_and_slide(global_transform.basis.z * 1 * speed)
 		rset_unreliable('puppet_position', get_global_transform())
 	else:
 		set_global_transform(puppet_position)

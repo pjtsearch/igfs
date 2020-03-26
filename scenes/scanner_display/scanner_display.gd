@@ -26,7 +26,7 @@ func _process(delta):
 #											width of scanner_display
 #													|
 #											   		v
-		var relative_position = (object.position * 150)*Vector2(1,-1)+Vector2(75,75)
+		var relative_position = (object.position * 150)*Vector2(-1,1)+Vector2(75,75)
 		new_object.position = relative_position
 #		relative_objects.append(new_object)
 		var sprite = scanner_sprite.instance()

@@ -19,7 +19,7 @@ func _ready():
 
 func _process(delta):
 	if is_network_master():
-		var collisionInfo = move_and_slide(global_transform.basis.z * -1 * speed)
+		var collisionInfo = move_and_slide(global_transform.basis.z * 1 * speed)
 		$crash_handler.handle_crashes()
 		if health <= 0:
 			reset()

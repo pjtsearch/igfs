@@ -6,19 +6,14 @@
 [ext_resource path="res://scenes/player/scanner_area.gd" type="Script" id=4]
 [ext_resource path="res://scenes/player/ship_type.gd" type="Script" id=5]
 
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape" id=1]
 radius = 2000.0
 
 [node name="player" type="KinematicBody"]
 script = ExtResource( 1 )
 
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.212011, -0.00892389, -0.405128 )
-spot_range = 20.0
-spot_angle = 45.0779
-
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503478, 0.878962 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0.868344, -5.04906 )
 far = 100000.0
 
 [node name="player_movement" type="Spatial" parent="."]
@@ -31,7 +26,7 @@ script = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="scanner_area"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="ship_type" type="Node" parent="."]
 script = ExtResource( 5 )
