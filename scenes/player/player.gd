@@ -40,3 +40,6 @@ master func reset():
 	landing = false
 	set_rotation(Vector3(0, 0, 0))
 	health = 100
+
+master func on_bullet_hit(damage):
+	health -= damage

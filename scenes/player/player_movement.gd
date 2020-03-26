@@ -89,7 +89,7 @@ master func _unhandled_input(event):
 							var id = randi()%100000000001+1
 							instance_bullet.set_name("bullet_"+str(id))
 							instance_bullet.set_network_master(get_tree().get_network_unique_id())
-							instance_bullet.speed = get_owner().speed + 200
+							instance_bullet.speed = get_owner().speed + 20
 							instance_bullet.set_global_transform(bullet_transform)
 							instance_bullet.owner_name = name
 							bullets.append(instance_bullet)
