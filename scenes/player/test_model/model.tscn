@@ -2,7 +2,22 @@
 
 [ext_resource path="res://scenes/player/test_model/scene.gltf" type="PackedScene" id=1]
 
-[node name="test_ship" type="Spatial"]
+[node name="model" type="Spatial"]
 
 [node name="scene" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0.0191398, -1.85657 )
+
+[node name="bullet_location" type="Spatial" parent="." groups=[
+"bullet_location",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0107998, 3.35243 )
+
+[node name="bullet_location2" type="Spatial" parent="." groups=[
+"bullet_location",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06753, 0.0107998, -0.190763 )
+
+[node name="bullet_location3" type="Spatial" parent="." groups=[
+"bullet_location",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03401, 0.0107998, -0.190763 )

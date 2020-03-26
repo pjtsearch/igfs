@@ -77,29 +77,37 @@ master func _unhandled_input(event):
 		if !pause_handler.movement_paused:
 			if event is InputEventKey:
 				if event.pressed and event.scancode == KEY_SPACE:
-					var instance_bullet = bullet.instance()
-					randomize()
-					var id = randi()%100000000001+1
-					instance_bullet.set_name("bullet_"+str(id))
-					instance_bullet.set_network_master(get_tree().get_network_unique_id())
-					instance_bullet.speed = get_owner().speed + 1000
-					instance_bullet.set_global_transform(get_owner().get_global_transform())
-					instance_bullet.owner_name = name
-#					make sure bullet doesn't hit the ship when it is spawned at high speeds
-#					var speed_compensation = -81.4 * (pow(0.99989,0.999*(get_owner().speed-100))) + 80.2
-#					if speed_compensation < 0: speed_compensation = 0
-					instance_bullet.translate(Vector3(0,0,0))
-					#print("_unhandled_input add_child")
-					$"/root/igfs/children/world/objects".add_child(instance_bullet)
+					var bullets = []
+					var bullet_locations = get_owner().get_node("model").get_children()
+					for bullet_location in bullet_locations:
+						if bullet_location.is_in_group("bullet_location"):
+							var bullet_transform = bullet_location.get_global_transform()
+#							print(bullet_location.name)
+							var instance_bullet = bullet.instance()
+							randomize()
+							var id = randi()%100000000001+1
+							instance_bullet.set_name("bullet_"+str(id))
+							instance_bullet.set_network_master(get_tree().get_network_unique_id())
+							instance_bullet.speed = get_owner().speed + 200
+							instance_bullet.set_global_transform(bullet_transform)
+							instance_bullet.owner_name = name
+							bullets.append(instance_bullet)
+		#					make sure bullet doesn't hit the ship when it is spawned at high speeds
+		#					var speed_compensation = -81.4 * (pow(0.99989,0.999*(get_owner().speed-100))) + 80.2
+		#					if speed_compensation < 0: speed_compensation = 0
+							#print("_unhandled_input add_child")
+							$"/root/igfs/children/world/objects".add_child(instance_bullet)
+							
+		#					print("--register_object id:"+str(id))
+							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
 					
-#					print("--register_object id:"+str(id))
-					network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id})
 					yield(get_tree().create_timer(10), "timeout")
-					if has_node("/root/igfs/children/world/objects/bullet_"+str(id)):
-						get_node("/root/igfs/children/world/objects/bullet_"+str(id)).queue_free()
-					else:
-						print_debug("doesnt have node:"+"/root/igfs/children/world/objects/bullet_"+str(id))
-					network.rpc("unregister_object",  "bullet_"+str(id))
+					for bullet in bullets:
+						if has_node("/root/igfs/children/world/objects/"+bullet.name):
+							get_node("/root/igfs/children/world/objects/"+bullet.name).queue_free()
+						else:
+							print_debug("doesnt have node:"+"/root/igfs/children/world/objects/"+bullet.name)
+						network.rpc("unregister_object",  bullet.name)
 				
 				if event.pressed and event.scancode == KEY_R:
 					get_owner().reset()
