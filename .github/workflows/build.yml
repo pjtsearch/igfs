@@ -48,3 +48,13 @@ jobs:
       with:
         name: Windows Desktop
         path: ./exports/Windows Desktop
+    - name: Upload Web
+      uses: actions/upload-artifact@v1
+      with:
+        name: Web
+        path: ./exports/HTML5
+    - name: Upload Android
+      uses: actions/upload-artifact@v1
+      with:
+        name: Android
+        path: ./exports/Android
