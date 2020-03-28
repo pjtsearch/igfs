@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.s3tc.stex"
 path.etc2="res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.etc2.stex"
+path.etc="res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://scenes/player/test_model/textures/material_11_baseColor.jpeg"
-dest_files=[ "res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.s3tc.stex", "res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.etc2.stex" ]
+dest_files=[ "res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.s3tc.stex", "res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.etc2.stex", "res://.import/material_11_baseColor.jpeg-24c69be642645d03376381391807cb00.etc.stex" ]
 
 [params]
 

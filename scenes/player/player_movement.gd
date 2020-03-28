@@ -90,7 +90,7 @@ master func _unhandled_input(event):
 							instance_bullet.set_network_master(get_tree().get_network_unique_id())
 							instance_bullet.speed = abs(get_owner().speed) + 50
 							instance_bullet.set_global_transform(bullet_transform)
-							instance_bullet.owner_name = name
+							instance_bullet.owner_name = get_owner().name
 							bullets.append(instance_bullet)
 		#					make sure bullet doesn't hit the ship when it is spawned at high speeds
 		#					var speed_compensation = -81.4 * (pow(0.99989,0.999*(get_owner().speed-100))) + 80.2
@@ -99,7 +99,7 @@ master func _unhandled_input(event):
 							$"/root/igfs/children/world/objects".add_child(instance_bullet)
 							
 		#					print("--register_object id:"+str(id))
-							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id="bullet_"+str(id)})
+							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id="bullet_"+str(id),owner_name=get_owner().name})
 					
 					
 				

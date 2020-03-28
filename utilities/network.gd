@@ -108,6 +108,7 @@ remote func register_object(owner,type,info):
 		print("bullet id: "+str(id))
 		var instance_bullet = bullet.instance()
 		instance_bullet.set_name(id)
+		instance_bullet.owner_name = info.owner_name
 		instance_bullet.set_network_master(owner)
 		#print("register_object add_child")
 		$"/root/igfs/children/world/objects".add_child(instance_bullet)
