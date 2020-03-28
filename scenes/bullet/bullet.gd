@@ -27,7 +27,7 @@ func destroy():
 
 func _process(delta):
 	if is_network_master():
-		var collisionInfo = move_and_collide(global_transform.basis.z * 1 * speed)
+		var collisionInfo = move_and_collide(global_transform.basis.z * 1 * speed/25)
 		rset_unreliable('puppet_position', get_global_transform())
 		if collisionInfo:
 			destroy()

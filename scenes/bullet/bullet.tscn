@@ -3,16 +3,16 @@
 [ext_resource path="res://scenes/bullet/bullet.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleMesh" id=1]
-radius = 0.5
-mid_height = 5.0
+radius = 0.2
+mid_height = 2.0
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
 albedo_color = Color( 0.282353, 0.788235, 0.0235294, 1 )
 
 [sub_resource type="CapsuleShape" id=3]
-radius = 0.5
-height = 5.0
+radius = 0.2
+height = 2.0
 
 [node name="bullet" type="KinematicBody"]
 collision_mask = 0
@@ -27,6 +27,5 @@ shape = SubResource( 3 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 light_color = Color( 0, 1, 0, 1 )
-light_energy = 1.55
 light_specular = 0.98
-omni_range = 85.1
+omni_range = 20.0
