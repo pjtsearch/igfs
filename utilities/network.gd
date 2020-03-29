@@ -35,6 +35,7 @@ func start():
 	var instance_my_player = player.instance()
 	instance_my_player.set_name("player_"+my_info.id)
 	instance_my_player.set_network_master(get_tree().get_network_unique_id())
+	instance_my_player.owner_name = my_info.id
 	$"/root/igfs/children/world/objects".add_child(instance_my_player)
 
 func stop():
@@ -101,6 +102,7 @@ remote func register_object(owner,type,info):
 		# Load new player
 		var instance_player = player.instance()
 		instance_player.set_name(id)
+		instance_player.owner_name = info.id
 		instance_player.set_network_master(owner) # Will be explained later
 		$"/root/igfs/children/world/objects".add_child(instance_player)
 	elif type == "bullet":

@@ -10,6 +10,7 @@ var speed = 0
 var health = 100
 var landing = false
 var respawn_position = Vector3(0,0,0)
+var owner_name = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

@@ -10,4 +10,4 @@ transform = Transform( 0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0.0191398, -1.8
 [node name="bullet_location3" type="Spatial" parent="." groups=[
 "bullet_location",
 ]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0424031, 0.0107998, 3.88071 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0424031, 0.0107998, 12.0563 )
