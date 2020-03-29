@@ -30,6 +30,8 @@ func _process(delta):
 		var collisionInfo = move_and_collide(global_transform.basis.z * 1 * speed/25)
 		rset_unreliable('puppet_position', get_global_transform())
 		if collisionInfo:
+			rset('puppet_position', get_global_transform())
+			yield(get_tree().create_timer(0.15), "timeout")			
 			destroy()
 	else:
 		set_global_transform(puppet_position)		
