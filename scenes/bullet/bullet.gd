@@ -31,11 +31,12 @@ func _process(delta):
 		rset_unreliable('puppet_position', get_global_transform())
 		if collisionInfo:
 			rset('puppet_position', get_global_transform())
+			#FIXME: wait until other players send a signal back that it collided, instead of doing a timer
 			yield(get_tree().create_timer(0.15), "timeout")			
 			destroy()
 	else:
 		set_global_transform(puppet_position)		
 		var collisionInfo = move_and_collide(global_transform.basis.z * 1 * 0)
 		if collisionInfo:
-			print(collisionInfo.collider.name)
+#			print(collisionInfo.collider.name)
 			collisionInfo.collider.on_bullet_hit(damage)

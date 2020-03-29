@@ -90,11 +90,11 @@ remote func register_client(id, info):
 	
 remote func register_object(owner,type,info):
 	
-#	print("--------------")
-#	print("Registering object, owner: " + str(owner))
-#	print("Object info:")
-#	print(info)
-#	print("--------------")
+	print("--------------")
+	print("Registering object, owner: " + str(owner))
+	print("Object info:")
+	print(info)
+	print("--------------")
 	var id;
 	
 	if type == "player":
@@ -117,15 +117,15 @@ remote func register_object(owner,type,info):
 	
 	objects[id] = info
 
-#	print("Objects: " + str(objects))
+	print("Objects: " + str(objects))
 
 remote func unregister_object(id):
-#	print("--------------")
-#	print("Unregistering object, id: " + str(id))
-#	print("--------------")
+	print("--------------")
+	print("Unregistering object, id: " + str(id))
+	print("--------------")
 	
 	if has_node("/root/igfs/children/world/objects/"+id):
 		get_node("/root/igfs/children/world/objects/"+id).queue_free()
 	objects.erase(id)
 	
-#	print("Objects: " + str(objects))
+	print("Objects: " + str(objects))
