@@ -22,6 +22,7 @@ func _ready():
 #	pass
 
 func destroy():
+	network.unregister_object(name)
 	network.rpc("unregister_object", name)	
 	queue_free()
 

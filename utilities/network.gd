@@ -40,8 +40,8 @@ func start():
 	register_client(get_tree().get_network_unique_id(),my_info)
 	register_object(get_tree().get_network_unique_id(),"player",my_info)
 #
-#	yield(get_tree().create_timer(15), "timeout")	
-#	save()
+	yield(get_tree().create_timer(8), "timeout")	
+	save()
 	
 func stop():
 	print("stopping server")
@@ -138,12 +138,12 @@ remote func unregister_object(id):
 
 func save():
 	var objects_save = {}
-	var id = "player_"+my_info.id
-	var my_object = my_info.duplicate()
-	var my_node = get_node("/root/igfs/children/world/objects/"+id)
-	var my_trans = my_node.get_global_transform()
-	my_object.transform = my_trans
-	objects_save[id] = my_object
+#	var id = "player_"+my_info.id
+#	var my_object = my_info.duplicate()
+#	var my_node = get_node("/root/igfs/children/world/objects/"+id)
+#	var my_trans = my_node.get_global_transform()
+#	my_object.transform = my_trans
+#	objects_save[id] = my_object
 	var ids = objects.keys()
 	for id in ids:
 		var object = objects[id].duplicate()
@@ -151,4 +151,4 @@ func save():
 		var trans = node.get_global_transform()
 		object.transform = trans
 		objects_save[id] = object
-	print(objects_save)
+	print(JSON.print(objects_save))
