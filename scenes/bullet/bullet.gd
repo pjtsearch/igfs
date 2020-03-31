@@ -37,6 +37,6 @@ func _process(delta):
 	else:
 		set_global_transform(puppet_position)		
 		var collisionInfo = move_and_collide(global_transform.basis.z * 1 * 0)
-		if collisionInfo:
+		if collisionInfo && collisionInfo.collider.has_method("on_bullet_hit"):
 #			print(collisionInfo.collider.name)
 			collisionInfo.collider.on_bullet_hit(damage)

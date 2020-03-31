@@ -32,12 +32,17 @@ func start():
 	get_tree().connect("server_disconnected",  self,"_server_disconnected")
 	
 	#register_client(get_tree().get_network_unique_id(),my_info)
-	var instance_my_player = player.instance()
-	instance_my_player.set_name("player_"+my_info.id)
-	instance_my_player.set_network_master(get_tree().get_network_unique_id())
-	instance_my_player.owner_name = my_info.id
-	$"/root/igfs/children/world/objects".add_child(instance_my_player)
-
+#	var instance_my_player = player.instance()
+#	instance_my_player.set_name("player_"+my_info.id)
+#	instance_my_player.set_network_master(get_tree().get_network_unique_id())
+#	instance_my_player.owner_name = my_info.id
+#	$"/root/igfs/children/world/objects".add_child(instance_my_player)
+	register_client(get_tree().get_network_unique_id(),my_info)
+	register_object(get_tree().get_network_unique_id(),"player",my_info)
+#
+#	yield(get_tree().create_timer(15), "timeout")	
+#	save()
+	
 func stop():
 	print("stopping server")
 	peer.close_connection()
@@ -80,8 +85,8 @@ remote func register_client(id, info):
 	if get_tree().is_network_server() && id != 1:
 		#my_info.ship = ShipInfo.ship
 		# Send my info to new player
-		rpc_id(id, "register_client", 1, my_info)
-		rpc_id(id, "register_object",  1, "player", my_info)
+#		rpc_id(id, "register_client", 1, my_info)
+#		rpc_id(id, "register_object",  1, "player", my_info)
 		# Send the info of existing players
 		for peer_id in client_info:
 			if peer_id != id:
@@ -129,3 +134,21 @@ remote func unregister_object(id):
 	objects.erase(id)
 	
 	print("Objects: " + str(objects))
+
+
+func save():
+	var objects_save = {}
+	var id = "player_"+my_info.id
+	var my_object = my_info.duplicate()
+	var my_node = get_node("/root/igfs/children/world/objects/"+id)
+	var my_trans = my_node.get_global_transform()
+	my_object.transform = my_trans
+	objects_save[id] = my_object
+	var ids = objects.keys()
+	for id in ids:
+		var object = objects[id].duplicate()
+		var node = get_node("/root/igfs/children/world/objects/"+id)
+		var trans = node.get_global_transform()
+		object.transform = trans
+		objects_save[id] = object
+	print(objects_save)
