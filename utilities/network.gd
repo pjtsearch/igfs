@@ -37,11 +37,16 @@ func start():
 #	instance_my_player.set_network_master(get_tree().get_network_unique_id())
 #	instance_my_player.owner_name = my_info.id
 #	$"/root/igfs/children/world/objects".add_child(instance_my_player)
+
 	register_client(get_tree().get_network_unique_id(),my_info)
-	register_object(get_tree().get_network_unique_id(),"player",my_info)
-#
-	yield(get_tree().create_timer(8), "timeout")	
-	save()
+	var ship_info = {
+		id=my_info.id,
+		type="player"
+	}
+	register_object(get_tree().get_network_unique_id(),ship_info)
+#	print(OS.get_unique_id())
+#	yield(get_tree().create_timer(15), "timeout")	
+#	save()
 	
 func stop():
 	print("stopping server")
@@ -62,7 +67,11 @@ func _connected_ok():
 	
 	yield(get_tree().create_timer(2), "timeout")
 	rpc("register_client", get_tree().get_network_unique_id(), my_info)
-	rpc("register_object",  get_tree().get_network_unique_id(), "player", my_info)
+	var ship_info = {
+		id=my_info.id,
+		type="player"
+	}
+	rpc("register_object",  get_tree().get_network_unique_id(), ship_info)
 	# Only called on clients, not server. Will go unused; not useful here.
 
 func _server_disconnected():
@@ -91,9 +100,10 @@ remote func register_client(id, info):
 		for peer_id in client_info:
 			if peer_id != id:
 				rpc_id(id, "register_client", peer_id, client_info[peer_id])
-				rpc_id(id, "register_object",  peer_id, "player", client_info[peer_id])
+				var ship_info = objects[client_info[peer_id].id]
+				rpc_id(id, "register_object",  peer_id, ship_info)
 	
-remote func register_object(owner,type,info):
+remote func register_object(owner,info):
 	
 	print("--------------")
 	print("Registering object, owner: " + str(owner))
@@ -102,16 +112,16 @@ remote func register_object(owner,type,info):
 	print("--------------")
 	var id;
 	
-	if type == "player":
-		id = "player_"+str(info.id)
+	if info.type == "player":
+		id = str(info.id)
 		# Load new player
 		var instance_player = player.instance()
 		instance_player.set_name(id)
 		instance_player.owner_name = info.id
 		instance_player.set_network_master(owner) # Will be explained later
 		$"/root/igfs/children/world/objects".add_child(instance_player)
-	elif type == "bullet":
-		id = info.id
+	elif info.type == "bullet":
+		id = str(info.id)
 		print("bullet id: "+str(id))
 		var instance_bullet = bullet.instance()
 		instance_bullet.set_name(id)
@@ -137,6 +147,7 @@ remote func unregister_object(id):
 
 
 func save():
+	var state = {}
 	var objects_save = {}
 #	var id = "player_"+my_info.id
 #	var my_object = my_info.duplicate()
@@ -148,7 +159,20 @@ func save():
 	for id in ids:
 		var object = objects[id].duplicate()
 		var node = get_node("/root/igfs/children/world/objects/"+id)
-		var trans = node.get_global_transform()
+		var trans = var2str(node.get_global_transform())
+#		print(trans[0])
 		object.transform = trans
 		objects_save[id] = object
-	print(JSON.print(objects_save))
+#	print(JSON.print(objects_save,"  "))
+	state.objects = objects_save
+	var f = File.new()
+	var err = f.open_encrypted_with_pass("res://save_game.dat", File.WRITE, OS.get_unique_id())
+	f.store_string(JSON.print(state))
+	f.close()
+	
+#	f = File.new()
+#	f.open_encrypted_with_pass("res://save_game.dat", File.READ, OS.get_unique_id())
+#	print(f.get_as_text())
+#	f.close()
+	
+

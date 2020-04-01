@@ -13,4 +13,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	text = str(get_node("/root/igfs/children/world/objects/player_"+network.my_info.id).health)
+	text = str(get_node("/root/igfs/children/world/objects/"+network.my_info.id).health)

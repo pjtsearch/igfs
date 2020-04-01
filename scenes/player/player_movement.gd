@@ -98,14 +98,14 @@ master func _unhandled_input(event):
 #							#print("_unhandled_input add_child")
 #							$"/root/igfs/children/world/objects".add_child(instance_bullet)
 							
-							var id = "bullet_"+str(uuid.generate())
-							network.register_object(get_tree().get_network_unique_id(), "bullet", {id=id,owner_name=get_owner().name})
+							var id = str(uuid.generate())
+							network.register_object(get_tree().get_network_unique_id(), {id=id,owner_name=get_owner().name,type="bullet"})
 							var node = get_node("/root/igfs/children/world/objects/"+id)
 							node.speed = abs(get_owner().speed)+70
 							node.set_global_transform(bullet_transform)
 							
 		#					print("--register_object id:"+str(id))
-							network.rpc("register_object",  get_tree().get_network_unique_id(), "bullet", {id=id,owner_name=get_owner().name})
+							network.rpc("register_object",  get_tree().get_network_unique_id(), {id=id,owner_name=get_owner().name,type="bullet"})
 					
 					
 				
