@@ -47,11 +47,13 @@ func start():
 	register_object(get_tree().get_network_unique_id(),ship_info)
 #	
 #	print(OS.get_unique_id())
-#	yield(get_tree().create_timer(30), "timeout")	
-#	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!save")
+#	yield(get_tree().create_timer(8), "timeout")	
+#	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!save\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n!!!!!!!!!!")
+#	yield(get_tree().create_timer(2), "timeout")	
 #	save()
-	yield(get_tree().create_timer(15), "timeout")	
-	load_game()
+	if server:
+		yield(get_tree().create_timer(10), "timeout")	
+		load_game()
 	
 func stop():
 	print("stopping server")
@@ -111,11 +113,11 @@ remote func register_client(id, info):
 	
 remote func register_object(owner,info):
 	
-	print("--------------")
-	print("Registering object, owner: " + str(owner))
-	print("Object info:")
-	print(info)
-	print("--------------")
+#	print("--------------")
+#	print("Registering object, owner: " + str(owner))
+#	print("Object info:")
+#	print(info)
+#	print("--------------")
 	var id;
 	
 	if info.type == "player":
@@ -138,18 +140,18 @@ remote func register_object(owner,info):
 	
 	objects[id] = info
 
-	print("Objects: " + str(objects))
+#	print("Objects: " + str(objects))
 
 remote func unregister_object(id):
-	print("--------------")
-	print("Unregistering object, id: " + str(id))
-	print("--------------")
+#	print("--------------")
+#	print("Unregistering object, id: " + str(id))
+#	print("--------------")
 	
 	if has_node("/root/igfs/children/world/objects/"+id):
 		get_node("/root/igfs/children/world/objects/"+id).queue_free()
 	objects.erase(id)
 	
-	print("Objects: " + str(objects))
+#	print("Objects: " + str(objects))
 
 
 func save():
@@ -215,7 +217,8 @@ func load_game():
 	var ids = objects.keys()
 	for id in ids:
 		var object = objects[id].duplicate()
-#		var network_master = client_info[object.owner_name]
+
+		#START get network_master
 		var network_master;
 		var network_ids = client_info.keys()
 		for network_id in network_ids:
@@ -224,16 +227,25 @@ func load_game():
 			if client_id == object.owner_name:
 				network_master = network_id
 #			register_object(network_master,)
+		#END get network_master
+
+		#If they are in the game:
 		if network_master:
-#			print(network_master)
-#			if network_master == get_tree().get_network_unique_id():
+			#If I don't already have the node, register it
 			if !has_node("/root/igfs/children/world/objects/"+id):
 				register_object(network_master,object)
 				var node = get_node("/root/igfs/children/world/objects/"+id)
-				node.set_global_transform(str2var(object.transform))
-				rpc("register_object",  network_master, object)
+#				node.set_global_transform(str2var(object.transform))
+				node.from_load(object)
+				rpc("register_object",  network_master, object)				
+				node.rpc_id(network_master,"from_load",object)
+				print("transform:")
+				print(node.get_global_transform())
+				print(str2var(object.transform))
 			else:
+#				Otherwise, just change the position of it
 				var node = get_node("/root/igfs/children/world/objects/"+id)
-				node.set_global_transform(str2var(object.transform))
+				node.from_load(object)
+				node.rpc_id(network_master,"from_load",object)
 #			else:
 #				pass

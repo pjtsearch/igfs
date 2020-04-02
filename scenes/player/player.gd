@@ -44,3 +44,8 @@ master func reset():
 
 master func on_bullet_hit(damage):
 	health -= damage
+
+master func from_load(object):
+	if is_network_master():
+		set_global_transform(str2var(object.transform))
+		rset('puppet_position', str2var(object.transform))

@@ -2,7 +2,7 @@ extends KinematicBody
 
 puppet var puppet_position = Transform(Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0))
 
-var speed = 100
+var speed = 0
 var damage = 10
 var owner_name = null
 # Declare member variables here. Examples:
@@ -41,3 +41,8 @@ func _process(delta):
 		if collisionInfo && collisionInfo.collider.has_method("on_bullet_hit"):
 #			print(collisionInfo.collider.name)
 			collisionInfo.collider.on_bullet_hit(damage)
+
+master func from_load(object):
+	if is_network_master():
+		set_global_transform(str2var(object.transform))
+		rset('puppet_position', str2var(object.transform))
