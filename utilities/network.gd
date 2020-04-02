@@ -41,12 +41,17 @@ func start():
 	register_client(get_tree().get_network_unique_id(),my_info)
 	var ship_info = {
 		id=my_info.id,
+		owner_name=my_info.id,
 		type="player"
 	}
 	register_object(get_tree().get_network_unique_id(),ship_info)
+#	
 #	print(OS.get_unique_id())
-#	yield(get_tree().create_timer(15), "timeout")	
+#	yield(get_tree().create_timer(30), "timeout")	
+#	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!save")
 #	save()
+	yield(get_tree().create_timer(15), "timeout")	
+	load_game()
 	
 func stop():
 	print("stopping server")
@@ -69,6 +74,7 @@ func _connected_ok():
 	rpc("register_client", get_tree().get_network_unique_id(), my_info)
 	var ship_info = {
 		id=my_info.id,
+		owner_name=my_info.id,
 		type="player"
 	}
 	rpc("register_object",  get_tree().get_network_unique_id(), ship_info)
@@ -160,6 +166,29 @@ func save():
 		var object = objects[id].duplicate()
 		var node = get_node("/root/igfs/children/world/objects/"+id)
 		var trans = var2str(node.get_global_transform())
+#		
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#			STORE HEALTH
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
 #		print(trans[0])
 		object.transform = trans
 		objects_save[id] = object
@@ -176,3 +205,35 @@ func save():
 #	f.close()
 	
 
+func load_game():
+	var f = File.new()
+	f.open_encrypted_with_pass("res://save_game.dat", File.READ, OS.get_unique_id())
+	var content = JSON.parse(f.get_as_text()).result
+#	print(content)
+	f.close()
+	var objects = content.objects
+	var ids = objects.keys()
+	for id in ids:
+		var object = objects[id].duplicate()
+#		var network_master = client_info[object.owner_name]
+		var network_master;
+		var network_ids = client_info.keys()
+		for network_id in network_ids:
+			var info = client_info[network_id]
+			var client_id = info.id
+			if client_id == object.owner_name:
+				network_master = network_id
+#			register_object(network_master,)
+		if network_master:
+#			print(network_master)
+#			if network_master == get_tree().get_network_unique_id():
+			if !has_node("/root/igfs/children/world/objects/"+id):
+				register_object(network_master,object)
+				var node = get_node("/root/igfs/children/world/objects/"+id)
+				node.set_global_transform(str2var(object.transform))
+				rpc("register_object",  network_master, object)
+			else:
+				var node = get_node("/root/igfs/children/world/objects/"+id)
+				node.set_global_transform(str2var(object.transform))
+#			else:
+#				pass

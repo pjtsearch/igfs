@@ -101,7 +101,7 @@ master func _unhandled_input(event):
 							var id = str(uuid.generate())
 							network.register_object(get_tree().get_network_unique_id(), {id=id,owner_name=get_owner().name,type="bullet"})
 							var node = get_node("/root/igfs/children/world/objects/"+id)
-							node.speed = abs(get_owner().speed)+70
+							node.speed = abs(get_owner().speed)+0
 							node.set_global_transform(bullet_transform)
 							
 		#					print("--register_object id:"+str(id))
